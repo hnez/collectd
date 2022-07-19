@@ -2301,6 +2301,12 @@ write_log_la_LDFLAGS = $(PLUGIN_LDFLAGS)
 write_log_la_LIBADD = libformat_graphite.la libformat_json.la
 endif
 
+if BUILD_PLUGIN_WRITE_THROTTLE
+pkglib_LTLIBRARIES += write_throttle.la
+write_throttle_la_SOURCES = src/write_throttle.c
+write_throttle_la_LDFLAGS = $(PLUGIN_LDFLAGS)
+endif
+
 if BUILD_PLUGIN_WRITE_MONGODB
 pkglib_LTLIBRARIES += write_mongodb.la
 write_mongodb_la_SOURCES = src/write_mongodb.c

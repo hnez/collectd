@@ -6642,6 +6642,7 @@ plugin_vmem="no"
 plugin_vserver="no"
 plugin_wireless="no"
 plugin_write_log="no"
+plugin_write_throttle="no"
 plugin_write_prometheus="no"
 plugin_write_stackdriver="no"
 plugin_xencpu="no"
@@ -6827,6 +6828,7 @@ if test "x$with_libyajl" = "xyes"; then
   plugin_log_logstash="yes"
   plugin_sysevent="yes"
   plugin_write_log="yes"
+  plugin_write_throttle="yes"
 fi
 
 if test "x$have_processor_info" = "xyes"; then
@@ -7173,6 +7175,7 @@ AC_PLUGIN([write_http],          [$with_libcurl],             [HTTP output plugi
 AC_PLUGIN([write_influxdb_udp],  [yes],                       [Influxdb udp output plugin])
 AC_PLUGIN([write_kafka],         [$with_librdkafka],          [Kafka output plugin])
 AC_PLUGIN([write_log],           [$plugin_write_log],         [Log output plugin])
+AC_PLUGIN([write_throttle],      [$plugin_write_throttle],    [An intentionally slow write plugin])
 AC_PLUGIN([write_mongodb],       [$with_libmongoc],           [MongoDB output plugin])
 AC_PLUGIN([write_prometheus],    [$plugin_write_prometheus],  [Prometheus write plugin])
 AC_PLUGIN([write_redis],         [$with_libhiredis],          [Redis output plugin])
@@ -7618,6 +7621,7 @@ AC_MSG_RESULT([    write_http  . . . . . $enable_write_http])
 AC_MSG_RESULT([    write_influxdb_udp. . $enable_write_influxdb_udp])
 AC_MSG_RESULT([    write_kafka . . . . . $enable_write_kafka])
 AC_MSG_RESULT([    write_log . . . . . . $enable_write_log])
+AC_MSG_RESULT([    write_throttle  . . . $enable_write_throttle])
 AC_MSG_RESULT([    write_mongodb . . . . $enable_write_mongodb])
 AC_MSG_RESULT([    write_prometheus. . . $enable_write_prometheus])
 AC_MSG_RESULT([    write_redis . . . . . $enable_write_redis])
