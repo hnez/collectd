@@ -771,6 +771,15 @@ static int write_queue_enqueue(write_queue_elem_t *ins_head) {
     return ENOENT;
   }
 
+  printf("Queue lengths:\n  before enqueue: ");
+
+  for (write_queue_thread_t *thread = write_queue.threads; thread != NULL;
+       thread = thread->next) {
+    printf("%3ld ", thread->queue_length);
+  }
+
+  printf("\n");
+
   write_queue_elem_t *ins_tail = NULL;
   long num_elems = 0;
 
@@ -864,6 +873,15 @@ static int write_queue_enqueue(write_queue_elem_t *ins_head) {
       pthread_mutex_unlock(&statistics_lock);
     }
   }
+
+  printf("  after enqueue:  ");
+
+  for (write_queue_thread_t *thread = write_queue.threads; thread != NULL;
+       thread = thread->next) {
+    printf("%3ld ", thread->queue_length);
+  }
+
+  printf("\n");
 
   pthread_cond_broadcast(&write_queue.cond);
   pthread_mutex_unlock(&write_queue.lock);
