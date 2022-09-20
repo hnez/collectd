@@ -180,7 +180,8 @@ pkglib_LTLIBRARIES =
 PLUGIN_LDFLAGS = \
 	-module \
 	-avoid-version \
-	-export-symbols-regex '\<module_register\>'
+	-export-symbols-regex '\<module_register\>' \
+	-lasan
 if BUILD_WIN32
 PLUGIN_LDFLAGS += -shared -no-undefined -lcollectd -L.
 endif
@@ -193,7 +194,8 @@ AM_CPPFLAGS = \
 	-DLOCALSTATEDIR='"${localstatedir}"' \
 	-DPKGLOCALSTATEDIR='"${cpkglocalstatedir}"' \
 	-DPLUGINDIR='"${cpkglibdir}"' \
-	-DPKGDATADIR='"${cpkgdatadir}"'
+	-DPKGDATADIR='"${cpkgdatadir}"' \
+	-fsanitize=address
 if BUILD_WIN32
 AM_CPPFLAGS += -DNOGDI
 endif
@@ -260,7 +262,7 @@ collectd_SOURCES = \
 
 collectd_CFLAGS = $(AM_CFLAGS)
 collectd_CPPFLAGS = $(AM_CPPFLAGS)
-collectd_LDFLAGS = -export-dynamic
+collectd_LDFLAGS = -export-dynamic -lasan
 collectd_LDADD = \
 	libavltree.la \
 	libcommon.la \
@@ -296,13 +298,13 @@ collectd_LDFLAGS += -Wl,--out-implib,libcollectd.a
 endif
 
 collectdmon_SOURCES = src/collectdmon.c
-
+collectdmon_LDADD = -lasan
 
 collectd_nagios_SOURCES = src/collectd-nagios.c
 collectd_nagios_CPPFLAGS = $(AM_CPPFLAGS) \
 	-I$(srcdir)/src/libcollectdclient \
 	-I$(top_builddir)/src/libcollectdclient
-collectd_nagios_LDADD = libcollectdclient.la
+collectd_nagios_LDADD = libcollectdclient.la -lasan
 if BUILD_WITH_LIBSOCKET
 collectd_nagios_LDADD += -lsocket
 endif
@@ -315,7 +317,7 @@ collectdctl_SOURCES = src/collectdctl.c
 collectdctl_CPPFLAGS = $(AM_CPPFLAGS) \
 	-I$(srcdir)/src/libcollectdclient \
 	-I$(top_builddir)/src/libcollectdclient
-collectdctl_LDADD = libcollectdclient.la
+collectdctl_LDADD = libcollectdclient.la -lasan
 if BUILD_WITH_LIBSOCKET
 collectdctl_LDADD += -lsocket
 endif
@@ -331,7 +333,8 @@ collectd_tg_CPPFLAGS = $(AM_CPPFLAGS) \
 collectd_tg_LDADD = \
 	$(PTHREAD_LIBS) \
 	libheap.la \
-	libcollectdclient.la
+	libcollectdclient.la \
+	-lasan
 if BUILD_WITH_LIBSOCKET
 collectd_tg_LDADD += -lsocket
 endif

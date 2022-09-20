@@ -757,7 +757,7 @@ AC_FUNC_STRERROR_R
 
 if test "x$GCC" = "xyes"; then
   SAVE_CFLAGS="$CFLAGS"
-  CFLAGS="$CFLAGS -Wall -Werror"
+  CFLAGS="$CFLAGS -Wall "
 fi
 SAVE_LDFLAGS="$LDFLAGS"
 LDFLAGS=""
@@ -930,7 +930,7 @@ AC_CHECK_FUNCS([thread_info], [have_thread_info="yes"], [have_thread_info="no"])
 # Check for strptime {{{
 if test "x$GCC" = "xyes"; then
   SAVE_CFLAGS="$CFLAGS"
-  CFLAGS="$CFLAGS -Wall -Wextra -Werror"
+  CFLAGS="$CFLAGS -Wall -Wextra "
 fi
 
 AC_CHECK_FUNCS([strptime], [have_strptime="yes"], [have_strptime="no"])
@@ -1001,10 +1001,10 @@ fi
 
 # Check for timegm {{{
 
-# These checks need -Werror because implicit function declarations are only a
+# These checks need  because implicit function declarations are only a
 # warning ...
 SAVE_CFLAGS="$CFLAGS"
-CFLAGS="$CFLAGS -Werror"
+CFLAGS="$CFLAGS "
 
 AC_CACHE_CHECK([for timegm],
   [c_cv_have_timegm],
@@ -3923,7 +3923,7 @@ if test "x$with_libnetsnmp" = "xyes"; then
   SAVE_LIBS="$LIBS"
   CPPFLAGS="$CPPFLAGS $with_libnetsnmp_cppflags"
   if test "x$GCC" = "xyes"; then
-    CPPFLAGS="$CPPFLAGS -Wall -Werror"
+    CPPFLAGS="$CPPFLAGS -Wall "
   fi
   LDFLAGS="$LDFLAGS $with_libnetsnmp_ldflags"
   LIBS="$LIBS -lnetsnmp"
@@ -4397,7 +4397,7 @@ if test "x$with_libperl" = "xyes"; then
   SAVE_LIBS="$LIBS"
   CFLAGS="$CFLAGS $PERL_CFLAGS"
   if test "x$GCC" = "xyes"; then
-    CFLAGS="$CFLAGS -Wall -Werror"
+    CFLAGS="$CFLAGS -Wall "
   fi
   LIBS="$LIBS $PERL_LIBS"
 
@@ -6562,7 +6562,7 @@ collectd features:])
 AC_COLLECTD([debug],     [enable],  [feature], [debugging])
 AC_COLLECTD([daemon],    [disable], [feature], [daemon mode])
 AC_COLLECTD([getifaddrs],[enable],  [feature], [getifaddrs under Linux])
-AC_COLLECTD([werror],    [disable], [feature], [building with -Werror])
+AC_COLLECTD([werror],    [disable], [feature], [building with ])
 
 dependency_warning="no"
 dependency_error="no"
@@ -7329,8 +7329,8 @@ if test "x$GCC" = "xyes"; then
   AM_CFLAGS="-Wall"
   AM_CXXFLAGS="-Wall"
   if test "x$enable_werror" != "xno"; then
-    AM_CFLAGS="$AM_CFLAGS -Werror"
-    AM_CXXFLAGS="$AM_CXXFLAGS -Werror"
+    AM_CFLAGS="$AM_CFLAGS "
+    AM_CXXFLAGS="$AM_CXXFLAGS "
   fi
 fi
 
